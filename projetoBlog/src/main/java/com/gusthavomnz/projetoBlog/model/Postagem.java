@@ -4,6 +4,7 @@ package com.gusthavomnz.projetoBlog.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -17,5 +18,9 @@ public class Postagem {
     private String titulo;
     private String conteudo;
     private LocalDateTime data;
+
+    private List<Comentarios> comentarios;
+
+    private User usuario;
 
 }

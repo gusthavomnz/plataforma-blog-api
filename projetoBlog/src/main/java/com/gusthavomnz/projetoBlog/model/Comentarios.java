@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -17,5 +18,13 @@ public class Comentarios {
 
     private String comentario;
     private LocalDateTime data;
+
+@ManyToOne
+    private Postagem postagem;
+
+@ManyToOne
+    private User usuario;
+
+
 
 }

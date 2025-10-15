@@ -4,6 +4,7 @@ package com.gusthavomnz.projetoBlog.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -18,5 +19,12 @@ public class User {
     private String nome;
     private String email;
     private String senha;
+
+
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<Postagem> postagens;
+
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<Comentarios> comentarios;
 
 }
