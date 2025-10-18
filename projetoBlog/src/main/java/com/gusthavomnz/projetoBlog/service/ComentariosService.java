@@ -9,6 +9,7 @@ import com.gusthavomnz.projetoBlog.repository.ComentariosRepository;
 import com.gusthavomnz.projetoBlog.repository.PostagemRepository;
 import com.gusthavomnz.projetoBlog.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -21,14 +22,13 @@ public class ComentariosService {
 
 
 
-
+@Transactional
     public ComentariosDTO criarComentario(ComentariosDTO comentariosDTO){
 
         Comentarios novoComentario = new Comentarios();
         Long idPostagem = comentariosDTO.getPostagemDTO().getId();
 
         novoComentario.setComentario(comentariosDTO.getComentario());
-        novoComentario.setData(comentariosDTO.getData());
 
         Postagem p = postagemRepository.findById(idPostagem).orElseThrow();
         User u = p.getUsuario();

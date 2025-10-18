@@ -19,8 +19,10 @@ public class Postagem {
     private String conteudo;
     private LocalDateTime data;
 
+    @OneToMany
     private List<Comentarios> comentarios;
 
+    @ManyToOne
     private User usuario;
 
     public Long getId() {

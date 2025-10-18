@@ -17,7 +17,7 @@ public class ComentariosDTO {
 
     public ComentariosDTO(Long id, String comentario, LocalDateTime data, PostagemDTO postagemDTO, UserDTO userDTO) {
         this.comentario = comentario;
-        this.data = data;
+        this.data = null;
         this.postagemDTO = postagemDTO;
         this.userDTO = userDTO;
     }
