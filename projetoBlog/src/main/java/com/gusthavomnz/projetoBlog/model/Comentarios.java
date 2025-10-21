@@ -6,6 +6,7 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Entity
 @Data
@@ -65,7 +66,7 @@ public class Comentarios {
         return usuario;
     }
 
-    public void setUsuario(User usuario) {
+    public void setUsuario(Optional<User> usuario) {
         this.usuario = usuario;
     }
 }

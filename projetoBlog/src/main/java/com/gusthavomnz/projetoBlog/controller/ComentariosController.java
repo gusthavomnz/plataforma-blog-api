@@ -18,20 +18,23 @@ public class ComentariosController {
     @Autowired
     private ComentariosService comentariosService;
 
-    private ComentariosRepository comentariosRepository;
 
-
-
-    @PostMapping(value = "/comentarios")
-    public ResponseEntity<String> criarComentario(@RequestBody ComentariosDTO comentariosDTO){
-        comentariosService.criarComentario(comentariosDTO);
+    @PostMapping(value = "{postId}/comentarios/{id_user")
+    public ResponseEntity<String> criarComentario(@PathVariable Long postId, @RequestBody ComentariosDTO comentariosDTO,@PathVariable Long id_user){
+        comentariosService.criarComentario(comentariosDTO,postId, id_user);
         return ResponseEntity.ok("Comentario criado!");
     }
 
 
-    @GetMapping(value = "/comentarios")
-    public List<Comentarios> listaComentarios(){
-        return comentariosRepository.findAll();
+    @GetMapping(value = "{postId}/comentarios")
+    public List<Comentarios> listaComentarios(@PathVariable Long postId){
+        return comentariosService.buscarComentarios(postId);
+    }
+
+    @DeleteMapping(value = "{postId}/comentarios/{id_comentario}")
+    public ResponseEntity<String> deletarComentario(@PathVariable Long id, @PathVariable Long id_comentario){
+        comentariosService.deletarComentario(id_comentario);
+       return ResponseEntity.ok("Comentario Deletado!");
     }
 
 

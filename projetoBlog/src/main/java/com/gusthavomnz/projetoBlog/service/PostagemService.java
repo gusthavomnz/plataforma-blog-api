@@ -5,7 +5,10 @@ import com.gusthavomnz.projetoBlog.dto.PostagemDTO;
 import com.gusthavomnz.projetoBlog.model.Postagem;
 import com.gusthavomnz.projetoBlog.repository.PostagemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class PostagemService {
@@ -14,12 +17,10 @@ public class PostagemService {
     PostagemRepository postagemRepository;
 
 
-
-    public PostagemDTO criarPostagem(PostagemDTO postagemDTO){
+    public PostagemDTO criarPostagem(PostagemDTO postagemDTO) {
         Postagem novaPostagem = new Postagem();
         novaPostagem.setTitulo(postagemDTO.getTitulo());
         novaPostagem.setConteudo(postagemDTO.getConteudo());
-        novaPostagem.setData(postagemDTO.getData());
 
         Postagem postagemSalva = postagemRepository.save(novaPostagem);
 
@@ -27,6 +28,16 @@ public class PostagemService {
                 postagemSalva.getTitulo(),
                 postagemSalva.getConteudo(),
                 postagemSalva.getData());
-        }
     }
+
+    public List<Postagem> listaPostagens() {
+        return postagemRepository.findAll();
+    }
+
+    public void deletarPostagem(Long postId) {
+        postagemRepository.deleteById(postId);
+    }
+
+
+}
 
