@@ -19,7 +19,7 @@ public class ComentariosController {
     private ComentariosService comentariosService;
 
 
-    @PostMapping(value = "{postId}/comentarios/{id_user")
+    @PostMapping(value = "{postId}/comentarios/{id_user}")
     public ResponseEntity<String> criarComentario(@PathVariable Long postId, @RequestBody ComentariosDTO comentariosDTO,@PathVariable Long id_user){
         comentariosService.criarComentario(comentariosDTO,postId, id_user);
         return ResponseEntity.ok("Comentario criado!");
