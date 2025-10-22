@@ -66,7 +66,7 @@ public class Comentarios {
         return usuario;
     }
 
-    public void setUsuario(Optional<User> usuario) {
+    public void setUsuario(User usuario) {
         this.usuario = usuario;
     }
 }

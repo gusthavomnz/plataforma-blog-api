@@ -1,5 +1,6 @@
 package com.gusthavomnz.projetoBlog.dto;
 
+import com.gusthavomnz.projetoBlog.model.Postagem;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -15,12 +16,18 @@ public class PostagemDTO {
     private String titulo;
     private String conteudo;
     private LocalDateTime data;
+    private UserDTO userDTO;
 
-    public PostagemDTO(Long id, String titulo, String conteudo, LocalDateTime data) {
+
+    public PostagemDTO(Long id, String titulo, String conteudo, LocalDateTime data, UserDTO userDTO) {
         this.id = id;
         this.titulo = titulo;
         this.conteudo = conteudo;
         this.data = data;
+        this.userDTO = userDTO;
+    }
+
+    public PostagemDTO(Postagem postagemSalva) {
     }
 
     public Long getId() {
@@ -53,5 +60,13 @@ public class PostagemDTO {
 
     public void setData(LocalDateTime data) {
         this.data = data;
+    }
+
+    public UserDTO getUserDTO() {
+        return userDTO;
+    }
+
+    public void setUserDTO(UserDTO userDTO) {
+        this.userDTO = userDTO;
     }
 }

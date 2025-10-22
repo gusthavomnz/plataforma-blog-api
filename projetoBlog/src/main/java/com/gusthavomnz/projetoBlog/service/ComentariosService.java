@@ -2,6 +2,8 @@ package com.gusthavomnz.projetoBlog.service;
 
 
 import com.gusthavomnz.projetoBlog.dto.ComentariosDTO;
+import com.gusthavomnz.projetoBlog.dto.PostagemDTO;
+import com.gusthavomnz.projetoBlog.dto.UserDTO;
 import com.gusthavomnz.projetoBlog.model.Comentarios;
 import com.gusthavomnz.projetoBlog.model.Postagem;
 import com.gusthavomnz.projetoBlog.model.User;
@@ -31,23 +33,42 @@ public class ComentariosService {
 
 
 @Transactional
-    public ComentariosDTO criarComentario(ComentariosDTO comentariosDTO, Long id, Long id_user){
+    public ComentariosDTO criarComentario(ComentariosDTO comentariosDTO, Long id_user, Long postId){
 
         Comentarios novoComentario = new Comentarios();
 
         novoComentario.setComentario(comentariosDTO.getComentario());
 
-        Postagem p = postagemRepository.findById(id).orElseThrow();
-        Optional<User> u = userRepository.findById(id_user);
+        Postagem p = postagemRepository.findById(postId).orElseThrow(); // ID DA POSTAGEM QUE IRA SER FEITA O COMENTARIO
+
+       User u = userRepository.findById(id_user).orElseThrow(); // ID DE QUEM ESTÁ COMENTANDO
+
         novoComentario.setPostagem(p);
         novoComentario.setUsuario(u);
 
         Comentarios comentariosSalvo = comentariosRepository.save(novoComentario);
-        return new ComentariosDTO(comentariosSalvo.getId(),
-                comentariosSalvo.getComentario(),
-                comentariosSalvo.getData(),
-                comentariosDTO.getPostagemDTO(),
-                comentariosDTO.getUserDTO());
+
+
+        // PROCESSO DE MAPEAR NOVAMENTE PARA DTO PARA FAZER O RETURN SEM PERIGO DE VAZAR DADOS:
+
+    UserDTO autorDTO = new UserDTO(
+            comentariosSalvo.getUsuario().getId(),
+            comentariosSalvo.getUsuario().getNome(),
+            comentariosSalvo.getUsuario().getEmail(),
+            null, null, null // Garante que a senha não vaze
+    );
+
+    PostagemDTO postDTO = new PostagemDTO(
+            comentariosSalvo.getPostagem().getId(),
+            comentariosSalvo.getPostagem().getTitulo(),
+            null, null, null);
+
+    return new ComentariosDTO(
+            comentariosSalvo.getId(),
+            comentariosSalvo.getComentario(),
+            comentariosSalvo.getData(),
+            postDTO,
+            autorDTO);
     }
 
     @Transactional

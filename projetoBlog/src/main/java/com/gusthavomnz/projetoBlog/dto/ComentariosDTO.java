@@ -1,5 +1,6 @@
 package com.gusthavomnz.projetoBlog.dto;
 
+import com.gusthavomnz.projetoBlog.model.Comentarios;
 import com.gusthavomnz.projetoBlog.model.Postagem;
 import com.gusthavomnz.projetoBlog.model.User;
 import lombok.Data;
@@ -20,6 +21,9 @@ public class ComentariosDTO {
         this.data = null;
         this.postagemDTO = postagemDTO;
         this.userDTO = userDTO;
+    }
+
+    public ComentariosDTO(Comentarios comentariosSalvo) {
     }
 
     public String getComentario() {
